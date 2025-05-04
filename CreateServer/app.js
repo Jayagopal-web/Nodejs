@@ -1,44 +1,7 @@
 const http = require('http');
-const fs = require('fs');
+const routes = require('./routes');
 
-const server = http.createServer((req, res)=>{
+console.log(routes.someText);
 
-    const url = req.url;
-    const method = req.method;
-    if (url === '/') {
-        res.setHeader('Content-type', 'text/html');
-        res.write('<html>');
-        res.write('<head><title>Enter Form Details</title></head>');
-        res.write('<body><form action="/message" method="POST"><input type="text" name="message"><input type="submit" value="Send"></form></body>');
-        res.write('</html>');
-        return res.end();    
-    }
-
-    if (url === '/message' && method == "POST") {
-        
-        const body = [];
-        req.on('data',(chunk)=>{            
-            body.push(chunk);
-            console.log(chunk);
-        })
-
-        req.on('end',()=>{
-            const parsedBody = Buffer.concat(body).toString();
-            const message = parsedBody.split('=');
-            fs.writeFileSync("hello.txt", message[1])
-        })
-
-        fs.writeFileSync('hello.txt', 'Dummy');
-        res.setHeader('Location', '/');
-        res.statusCode = 302;
-        return res.end();
-    }
-
-    res.setHeader('Content-type', 'text/html');
-    res.write('<html>');
-    res.write('<head><title>Node Server</title></head>');
-    res.write('<body><h1>Response form Node Server</h1></body>');
-    res.write('</html>');
-    res.end();
-});
+const server = http.createServer(routes.handler);
 server.listen(5000);
