@@ -24,7 +24,7 @@ const requestHandler = (req,res)=>{
             console.log("End event received");
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=');
-            fs.writeFile("hello.txt", message[1],()=>{
+            fs.writeFile("hello.txt", message[1],(err)=>{
                 console.log("File completed");
                 res.setHeader('Location', '/');
                 res.statusCode = 302;

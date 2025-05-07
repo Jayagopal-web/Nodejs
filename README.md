@@ -17,6 +17,13 @@ You need to include the word run between npm and your custom command name (start
 
 ## How to install 3rd Party Packages
 
-```bash
-$ npm install
+1. To add an entry to the "dependencies" attribute of a package.json file, on the command line, run the following command:
 
+    ```bash
+    $ npm install <package-name> --save-prod
+
+    
+2. To add an entry to the "devDependencies" attribute of a package.json file, on the command line, run the following command:
+
+    ```bash
+    npm install <package-name> --save-dev
