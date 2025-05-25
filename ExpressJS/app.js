@@ -1,19 +1,15 @@
-const http = require('http');
 const express = require('express');
-
 const app = express();
+const bodyParser = require('body-parser') ;
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
+app.use(bodyParser.urlencoded());
+app.use('/admin',adminRoutes);
+app.use(shopRoutes);
 
 app.use((req,res,next)=>{
-    console.log("First Middleware");
-    next();
-})
-app.use((req,res,next)=>{
-    console.log("Second Middleware");
-    next();
-})
-app.use((req,res,next)=>{
-    console.log("Third Middleware");
-    res.send('<h1>Hello from ExpressJS!</h1>');
-})
-const server = http.createServer(app);
-server.listen(5000);
+    res.status(404).send("<center><h1>404 Page Not Found</h1></center>");
+});
+
+app.listen(5000);
